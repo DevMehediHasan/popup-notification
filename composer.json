@@ -1,0 +1,19 @@
+{
+    "name": "mehedimk/custom-npopup-notification",
+    "description": "You can add Popup notification for your Products/Services.",
+    "type": "wordpress-plugin",
+    "license": "GPLv2",
+    "authors": [
+        {
+            "name": "Mehedi Hasan"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "CustomPopup\\Notification\\": "includes/"
+        },
+        "files": []
+    }
+}
