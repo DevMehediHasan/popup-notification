@@ -1,1 +1,1 @@
-# Modern Wordpress Popup Notification for products
+# Modern Wordpress Popup Notification for products. You can add Popup notification for your Products/Services

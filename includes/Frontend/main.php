@@ -3,7 +3,7 @@
 namespace CustomPopup\Notification\Frontend;
 
 /**
- * The menu handler class
+ * The Main handler class
  * 
  */
 
