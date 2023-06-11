@@ -9,6 +9,13 @@ namespace CustomPopup\Notification\Admin;
 
 class Notification
 {
+    public $errors = [];
+
+    /**
+     * Plugin page handler
+     *
+     * @return void
+     */
     public function plugin_page()
     {
         $action = isset($_GET['action']) ? $_GET['action'] : 'list';
@@ -54,7 +61,34 @@ class Notification
             wp_die('Are you cheating?');
         }
 
-        var_dump($_POST);
+        $name    = isset( $_POST['product-name'] ) ? sanitize_text_field( $_POST['product-name'] ) : '';
+        $description = isset( $_POST['ps-description'] ) ? sanitize_textarea_field( $_POST['ps-description'] ) : '';
+        $producturl   = isset( $_POST['product-url'] ) ? sanitize_text_field( $_POST['product-url'] ) : '';
+
+        if ( empty( $name ) ) {
+            $this->errors['product-name'] = __( 'Please provide a product-name', 'wedevs-academy' );
+        }
+
+        if ( empty( $description ) ) {
+            $this->errors['ps-description'] = __( 'Please provide a ps-description.', 'wedevs-academy' );
+        }
+
+        if ( ! empty( $this->errors ) ) {
+            return;
+        }
+
+        $insert_id = wd_ac_insert_address( [
+            'product-name'    => $name,
+            'ps-description' => $description,
+            'product-url'   => $producturl
+        ] );
+
+        if ( is_wp_error( $insert_id ) ) {
+            wp_die( $insert_id->get_error_message() );
+        }
+
+        $redirected_to = admin_url( 'admin.php?page=custom-popup-notification&inserted=true' );
+        wp_redirect( $redirected_to );
         exit;
     }
 }

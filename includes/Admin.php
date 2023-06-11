@@ -9,9 +9,10 @@ class Admin
 {
     function __construct()
     {
-        $this->dispatch_actions();
+        $notification = new Admin\Notification();
+        $this->dispatch_actions($notification);
 
-        new Admin\Menu();
+        new Admin\Menu( $notification );
     }
 
     /**
@@ -19,9 +20,9 @@ class Admin
      *
      * @return void
      */
-    public function dispatch_actions() {
-        $notification = new Admin\Notification();
-        
+    public function dispatch_actions( $notification) {
+       
+
         add_action( 'admin_init', [ $notification, 'form_handler' ] );
 
     }
