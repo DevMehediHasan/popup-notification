@@ -71,7 +71,7 @@ final class Custom_Popup_Notification
 
     public function init_plugin()
     {
-        if (is_admin()) {
+        if ( is_admin() ) {
             new CustomPopup\Notification\Admin();
         } else {
             new \CustomPopup\Notification\Frontend();
@@ -81,12 +81,8 @@ final class Custom_Popup_Notification
     public function activate()
     {
 
-        $installed = get_option('cpn_installed');
-        if (!$installed) {
-            update_option('cpn_installed', time());
-        }
-
-        update_option('cpn_version', CPN_VERSION);
+        $installer = new \CustomPopup\Notification\Installer();
+        $installer->run();
     }
 }
 

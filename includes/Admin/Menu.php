@@ -16,11 +16,21 @@ class Menu
 
     public function admin_menu()
     {
-        add_menu_page(__('Popup Notification', 'custom-popup-notification'), __('Notification', 'custom-popup-notification'), 'manage_options', 'custom-popup-notification', [$this, 'plugin_page'], 'dashicons-bell' );
+        $parent_slug = 'custom-popup-notification';
+        $manage_options = 'manage_options';
+        add_menu_page(__('Popup Notification', 'custom-popup-notification'), __('Notification', 'custom-popup-notification'), $manage_options, 'custom-popup-notification', [$this, 'all_notification'], 'dashicons-bell' );
+        add_submenu_page( $parent_slug, __('All Notification', 'custom-popup-notification'), __('All Notification', 'custom-popup-notification'), $manage_options, $parent_slug, [$this, 'all_notification'], );
+        add_submenu_page( $parent_slug, __('Notification Settings', 'custom-popup-notification'), __('Notification Settings', 'custom-popup-notification'), $manage_options, 'notification-settings', [$this, 'notification_settings'], );
     }
 
-    public function plugin_page()
+    public function all_notification()
     {
-        echo 'hello';
+        $notification = new Notification();
+        $notification->plugin_page();
+
+    }
+    public function notification_settings()
+    {
+        echo 'notification_settings';
     }
 }
