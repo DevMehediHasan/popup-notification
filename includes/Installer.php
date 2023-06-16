@@ -41,9 +41,9 @@ class Installer {
 
         $schema = "CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}cp_notification` (
           `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-          `product-name` varchar(100) NOT NULL DEFAULT '',
-          `ps-description` varchar(255) DEFAULT NULL,
-          `product-url` varchar(30) DEFAULT NULL,
+          `product_name` varchar(100) NOT NULL DEFAULT '',
+          `ps_description` varchar(255) DEFAULT NULL,
+          `product_url` varchar(30) DEFAULT NULL,
           `created_by` bigint(20) unsigned NOT NULL,
           `created_at` datetime NOT NULL,
           PRIMARY KEY (`id`)
