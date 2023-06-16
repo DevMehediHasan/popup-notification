@@ -11,14 +11,14 @@ function cpn_insert_notification($args = [])
 {
     global $wpdb;
 
-    if (empty($args['product-name'])) {
+    if (empty($args['product_name'])) {
         return new \WP_Error('no-name', __('You must provide a name.', 'custom-popup-notification'));
     }
 
     $defaults = [
-        'product-name'       => '',
-        'ps-description'    => '',
-        'product-url'      => '',
+        'product_name'       => '',
+        'ps_description'    => '',
+        'product_url'      => '',
         'created_by' => get_current_user_id(),
         'created_at' => current_time('mysql'),
     ];
@@ -59,8 +59,8 @@ function cp_get_notifications($args = [])
 
     $items = $wpdb->get_results(
         $wpdb->prepare(
-            "SELECT * FROM {$wpdb->prefix}cp_notification ORDER BY %s %s LIMIT %d, %d",
-            $args['orderby'], $args['order'], $args['offset'], $args['number'],
+            "SELECT * FROM {$wpdb->prefix}cp_notification ORDER BY {$args['orderby']} {$args['order']} LIMIT %d, %d",
+            $args['offset'], $args['number'],
         )
     );
     return $items;

@@ -27,6 +27,20 @@ class Notification_List extends \WP_List_Table{
         ];
     }
 
+        /**
+     * Get sortable columns
+     *
+     * @return array
+     */
+    function get_sortable_columns() {
+        $sortable_columns = [
+            'product_name'       => [ 'product_name', true ],
+            'created_at' => [ 'created_at', true ],
+        ];
+
+        return $sortable_columns;
+    }
+
     protected function column_default( $item, $column_name) {
         switch ($column_name) {
             case 'value':
@@ -39,8 +53,17 @@ class Notification_List extends \WP_List_Table{
     }
 
     public function column_product_name( $item){
+        $actions = [];
+
+        $actions['edit'] = sprintf(' <a href="%s" title="%s">%s</a>', admin_url( 'admin.php?page=custom-popup-notification&action=edit$id=' . $item->id ), $item->id, __('Edit', 'custom-popup-notification'), __('Edit', 'custom-popup-notification') );
+        $actions['delete'] = sprintf('<a href="%s" class="submitdelete" onclick="return confirm(\'Are you Sure?\')" title="%s">%s</a>', wp_nonce_url( admin_url( 'admin-post.php?action=cp-delete-notification&id=' .$item->id), 'cp-delete-notification'), $item->id, __('Delete', 'custom-popup-notification'), __('Delete', 'custom-popup-notification'));
         return sprintf(
-            '<a href="%1%s"><strong>%2%s</strong></a>', admin_url( 'admin.php?page=custom-popup-notification&action=view$id'. $item->id), $item->product_name
+            '<a href="%1$s"><strong>%2$s</strong></a> %3$s', admin_url( 'admin.php?page=custom-popup-notification&action=view$id'. $item->id), $item->product_name,$this->row_actions( $actions )
+        );
+    }
+    public function column_cb( $item){
+        return sprintf(
+            '<input type="checkbox" name="notification_id[]" value="%d" />', $item->id
         );
     }
 
@@ -50,11 +73,22 @@ class Notification_List extends \WP_List_Table{
         $hidden = [];
         $sortable = $this->get_sortable_columns();
 
-        $per_page = 20;
-
         $this->_column_headers = [ $column, $hidden, $sortable];
 
-        $this->items = cp_get_notifications();
+        $per_page = 1;
+        $current_page = $this->get_pagenum();
+        $offset = ( $current_page - 1 ) * $per_page;
+
+        $args = [
+            'number' => $per_page,
+            'offset' => $offset,
+        ];
+        if ( isset( $_REQUEST['orderby'] ) && isset( $_REQUEST['order'] ) ) {
+            $args['orderby'] = $_REQUEST['orderby'];
+            $args['order']   = $_REQUEST['order'] ;
+        }
+
+        $this->items = cp_get_notifications($args);
         $this->set_pagination_args([
             'total_items' => cp_get_notification_count(),
             'per_page' => $per_page

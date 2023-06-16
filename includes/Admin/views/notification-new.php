@@ -1,33 +1,33 @@
 <div class="wrap">
     <h1><?php _e( 'New Address', 'custom-popup-notification' ); ?></h1>
 
-    <?php var_dump( $this->errors ); ?>
+    <?php // var_dump( $this->errors ); ?>
 
     <form action="" method="post">
         <table class="form-table">
             <tbody>
-                <tr>
+            <tr class="row<?php echo $this->has_error( 'product_name' ) ? ' form-invalid' : '' ;?>">
                     <th scope="row">
-                        <label for="product-name"><?php _e( 'Product Name', 'custom-popup-notification' ); ?></label>
+                        <label for="product_name"><?php _e( 'Product Name', 'custom-popup-notification' ); ?></label>
                     </th>
                     <td>
-                        <input type="text" name="product-name" id="product-name" class="regular-text" value="">
+                        <input type="text" name="product_name" id="product_name" class="regular-text" value="">
                     </td>
                 </tr>
                 <tr>
                     <th scope="row">
-                        <label for="ps-description"><?php _e( 'Products short description', 'custom-popup-notification' ); ?></label>
+                        <label for="ps_description"><?php _e( 'Products short description', 'custom-popup-notification' ); ?></label>
                     </th>
                     <td>
-                        <textarea class="regular-text" name="ps-description" id="ps-description"></textarea>
+                        <textarea class="regular-text" name="ps_description" id="ps_description"></textarea>
                     </td>
                 </tr>
                 <tr>
                     <th scope="row">
-                        <label for="product-url"><?php _e( 'Product URL', 'custom-popup-notification' ); ?></label>
+                        <label for="product_url"><?php _e( 'Product URL', 'custom-popup-notification' ); ?></label>
                     </th>
                     <td>
-                        <input type="url" name="product-url" id="product-url" class="regular-text" value="">
+                        <input type="url" name="product_url" id="product_url" class="regular-text" value="">
                     </td>
                 </tr>
             </tbody>

@@ -1,6 +1,7 @@
 <?php
 
 namespace CustomPopup\Notification\Admin;
+use CustomPopup\Notification\Traits\Form_Error;
 
 /**
  * The notification handler class
@@ -9,7 +10,7 @@ namespace CustomPopup\Notification\Admin;
 
 class Notification
 {
-    public $errors = [];
+    use Form_Error;
 
     /**
      * Plugin page handler
@@ -66,11 +67,11 @@ class Notification
         $producturl   = isset($_POST['product-url']) ? sanitize_text_field($_POST['product-url']) : '';
 
         if (empty($name)) {
-            $this->errors['product-name'] = __('Please provide a product-name', 'wedevs-academy');
+            $this->errors['product_name'] = __('Please provide a product name', 'wedevs-academy');
         }
 
         if (empty($description)) {
-            $this->errors['ps-description'] = __('Please provide a ps-description.', 'wedevs-academy');
+            $this->errors['ps_description'] = __('Please provide a description.', 'wedevs-academy');
         }
 
         if (!empty($this->errors)) {
@@ -78,9 +79,9 @@ class Notification
         }
 
         $insert_id = cpn_insert_notification([
-            'product-name'   => $name,
-            'ps-description' => $description,
-            'product-url'    => $producturl
+            'product_name'   => $name,
+            'ps_description' => $description,
+            'product_url'    => $producturl
         ]);
 
         if (is_wp_error($insert_id)) {
