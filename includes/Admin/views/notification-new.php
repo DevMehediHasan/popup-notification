@@ -12,6 +12,9 @@
                     </th>
                     <td>
                         <input type="text" name="product_name" id="product_name" class="regular-text" value="">
+                        <?php if ( $this->has_error( 'product_name' ) ) { ?>
+                            <p class="description error"><?php echo $this->get_error( 'product_name' ); ?></p>
+                        <?php } ?>
                     </td>
                 </tr>
                 <tr>
@@ -20,6 +23,9 @@
                     </th>
                     <td>
                         <textarea class="regular-text" name="ps_description" id="ps_description"></textarea>
+                        <?php if ( $this->has_error( 'ps_description' ) ) { ?>
+                            <p class="description error"><?php echo $this->get_error( 'ps_description' ); ?></p>
+                        <?php } ?>
                     </td>
                 </tr>
                 <tr>
