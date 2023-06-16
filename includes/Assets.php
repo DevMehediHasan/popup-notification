@@ -22,7 +22,7 @@ class Assets {
      */
     public function get_scripts() {
         return [
-            'academy-script' => [
+            'cpn-admin-script' => [
                 'src'     => CPN_ASSETS . '/js/admin.js',
                 'version' => filemtime( CPN_PATH . '/assets/js/admin.js' ),
                 'deps'    => [ 'jquery' ]
@@ -37,7 +37,7 @@ class Assets {
      */
     public function get_styles() {
         return [
-            'academy-style' => [
+            'cpn-admin-style' => [
                 'src'     => CPN_ASSETS . '/css/admin.css',
                 'version' => filemtime( CPN_PATH . '/assets/css/admin.css' )
             ],
