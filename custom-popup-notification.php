@@ -72,9 +72,9 @@ final class Custom_Popup_Notification
     public function init_plugin()
     {
 
-        new WeDevs\Academy\Assets();
+        new CustomPopup\Notification\Assets();
 
-        
+
         if ( is_admin() ) {
             new CustomPopup\Notification\Admin();
         } else {
