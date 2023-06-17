@@ -24,6 +24,7 @@ class Admin
        
 
         add_action( 'admin_init', [ $notification, 'form_handler' ] );
+        add_action( 'admin_post_cp-delete-notification', [ $notification, 'delete_notification' ] );
 
     }
 }

@@ -65,7 +65,7 @@ final class Custom_Popup_Notification
         define('CPN_VERSION', self::version);
         define('CPN_FILE', __FILE__);
         define('CPN_PATH', __DIR__);
-        define('CPN_URL', plugin_dir_url('', CPN_FILE));
+        define('CPN_URL', plugins_url('', CPN_FILE));
         define('CPN_ASSETS', CPN_URL . '/assets');
     }
 
