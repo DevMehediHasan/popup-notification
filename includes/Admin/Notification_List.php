@@ -32,6 +32,7 @@ class Notification_List extends \WP_List_Table{
             'product_name' => __('Products Name', 'custom-popup-notification'),
             'ps_description' => __('Products Description', 'custom-popup-notification'),
             'product_url' => __('Products Url', 'custom-popup-notification'),
+            'product_image' =>	__('Image', 'custom-popup-notification'),
             'created_at' => __('Date', 'custom-popup-notification'),
         ];
     }
@@ -84,6 +85,27 @@ class Notification_List extends \WP_List_Table{
             '<a href="%1$s"><strong>%2$s</strong></a> %3$s', admin_url( 'admin.php?page=custom-popup-notification&action=view$id'. $item->id), $item->product_name,$this->row_actions( $actions )
         );
     }
+
+    public function column_product_image($item) {
+        $image_id = $item->product_image;
+        $image_url = wp_get_attachment_image_url($image_id, 'thumbnail');
+    
+        if (!$image_url) {
+            return '-';
+        }
+    
+        $actions = [];
+        $actions['view'] = sprintf('<a href="%s" target="_blank" title="%s">%s</a>', $image_url, __('View Image', 'custom-popup-notification'), __('View Image', 'custom-popup-notification'));
+    
+        return sprintf(
+            '<img src="%s" alt="%s" width="50" height="50" /><br />%s',
+            $image_url,
+            __('Product Image', 'custom-popup-notification'),
+            $this->row_actions($actions)
+        );
+    }
+
+    
     public function column_cb( $item){
         return sprintf(
             '<input type="checkbox" name="notification_id[]" value="%d" />', $item->id

@@ -19,6 +19,7 @@ function cp_insert_notification($args = [])
         'product_name'       => '',
         'ps_description'    => '',
         'product_url'      => '',
+        'product_image'      => '',
         'created_by' => get_current_user_id(),
         'created_at' => current_time('mysql'),
     ];
@@ -35,6 +36,7 @@ function cp_insert_notification($args = [])
             $data,
             [ 'id' => $id ],
             [
+                '%s',
                 '%s',
                 '%s',
                 '%s',
@@ -55,13 +57,14 @@ function cp_insert_notification($args = [])
                 '%s',
                 '%s',
                 '%s',
+                '%s',
                 '%d',
                 '%s'
             ]
         );
 
         if ( ! $inserted ) {
-            return new \WP_Error( 'failed-to-insert', __( 'Failed to insert data', 'wedevs-academy' ) );
+            return new \WP_Error( 'failed-to-insert', __( 'Failed to insert data', 'custom-popup-notification' ) );
         }
 
         return $wpdb->insert_id;
@@ -121,6 +124,11 @@ function cp_get_notification( $id ) {
  */
 function cp_delete_notification( $id ) {
     global $wpdb;
+
+    $notification = cp_get_notification( $id );
+    if ( $notification && $notification->product_image ) {
+        wp_delete_attachment( $notification->product_image, true );
+    }
 
     return $wpdb->delete(
         $wpdb->prefix . 'cp_notification',

@@ -44,6 +44,7 @@ class Installer {
           `product_name` varchar(100) NOT NULL DEFAULT '',
           `ps_description` varchar(255) DEFAULT NULL,
           `product_url` varchar(30) DEFAULT NULL,
+          `product_image` varchar(255) DEFAULT NULL,
           `created_by` bigint(20) unsigned NOT NULL,
           `created_at` datetime NOT NULL,
           PRIMARY KEY (`id`)
